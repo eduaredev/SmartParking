@@ -1,0 +1,144 @@
+/* Este es un reset que se va a ocupar casi que para todos los css, debido a que es un reset para que el nav-bar cargue bien y no se desplace */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: #fafafa;
+    color: #000000;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2155CF;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-img{
+    height: 50px;
+    width: auto;
+    border-radius: 50%;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 60px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #000000;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.link-login {
+    text-decoration: none;
+    color: #000000;
+    font-weight: 600;
+}
+
+/* Botones de iniciar sesion y crear cuenta */
+.btn {
+    background-color: #2155CF;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 50px;
+    text-decoration: none; /* Esto es unicamente para que visualmente no salga como si fuese un link a algo, con la raya de abajo*/
+    font-weight: 600;
+    transition: background 0.3s;
+}
+
+.btn:hover {
+    background-color: #082366;
+}
+
+.btn-outline {
+    display: inline-block;
+    background-color: transparent;
+    color: #2155CF;
+    border: 2px solid #2155CF;
+    padding: 12px 25px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 20px;
+    transition: all 0.3s;
+}
+
+.btn-outline:hover {
+    background-color: #082366;
+}
+
+
+.hero {
+    text-align: center;
+    padding: 100px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hero-content {
+    max-width: 800px;
+}
+
+h1 {
+    font-size: 3.5rem;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    letter-spacing: -1px;
+}
+
+/* Estilo del recuadro en el logo */
+.badge {
+    background-color: #2155CF;
+    color: white;
+    padding: 0px 15px;
+    border-radius: 12px;
+    display: inline-block;
+}
+
+.subtitulo {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #4a4a4a;
+    margin-bottom: 20px;
+}
+
+.descripcion {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.small-text {
+    font-size: 0.9rem;
+    color: #082366;
+    margin-bottom: 30px;
+}
+
