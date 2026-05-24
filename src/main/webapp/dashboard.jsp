@@ -16,9 +16,9 @@
 </head>
 <body>
     <div class="main">
-        <a href="http:localhost:5000/mapa" class="btn-python">
+        <a href="mapa.jsp" class="btn-python">
             Abrir Mapa 3D
         </a>
     </div>
-<body>
+</body>
 </html>
