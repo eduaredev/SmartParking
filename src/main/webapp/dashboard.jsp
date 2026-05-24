@@ -3,7 +3,7 @@
 <html lang="es">
 <!-- Sentencia Java para verificar si el usuario se encuentra en sesion, sino se manda al login-->
 <%
-    if(session.getAttribute("usuario_uid")==null){
+    if(session.getAttribute("usuarioLogueado")==null){
         response.sendRedirect("login.jsp");
         return;
     }

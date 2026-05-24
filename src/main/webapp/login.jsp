@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>SmartParking - Iniciar Sesión</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/login.css?v=2">
 </head>
 <body class="bg-gris">
 
@@ -24,7 +24,36 @@
             <h2>¡Hola de nuevo!</h2>
             <p>Ingresa tus credenciales para acceder a tu panel.</p>
 
-            <form id="formLogin" class="formulario">
+            <%
+                String mensaje = request.getParameter("mensaje");
+                if (mensaje != null && mensaje.equals("RegistroExitoso")) {
+            %>
+            <div class="CSSExito">
+                ¡Cuenta creada con éxito! Por favor, inicia sesión.
+            </div>
+            <%
+                }
+            %>
+
+            <%
+                // Aqui declaramos la variable error que le puse en el LoginServlet, para poder validar con las demas variables que tambien
+                // se declararon en el LoginServlet en el response.sendRedirect("");
+                String error = request.getParameter("error");
+                if(error != null){
+                    String mensajeError = "Ocurrio un error";
+                    if(error.equals("CredencialesInvalidas")) mensajeError = "Correo o contraseña incorrectos";
+                    if(error.equals("TokenInvalido")) mensajeError = "Error de autenticación de Google";
+                    if(error.equals("DatosIncompletos")) mensajeError = "Complete todos los campos";
+
+            %>
+                <div class="CSSError">
+                    <%= mensajeError %>
+                </div>
+            <%
+                }
+            %>
+
+            <form id="formLogin" action="LoginServlet" method="POST" class="formulario">
 
                 <div class="grupo-input">
                     <label for="email">Correo Electrónico</label>
