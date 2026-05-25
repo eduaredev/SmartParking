@@ -1,11 +1,16 @@
 import * as osrm from './osrm.js';
+import * as mapajs from './mapa.js';
 
-export function crearMarcador(longitud, latitud, color) {
+export function crearMarcador(longitud, latitud, color, datosplaza = null) {
 
     //const coordmarc = ol.projLonLat([[- 96.1712490361371, 19.176771870517648]]); //Le pasamos a la variable marcador la coordenada que queremos dibujar
     const coordmarc = ol.proj.fromLonLat([longitud, latitud]);
     // Otra variable donde creamos la geometria que representa el punto en el espacio
     const marcador = new ol.Feature({ geometry: new ol.geom.Point(coordmarc) });
+
+    if(datosplaza != null){
+        marcador.setProperties(datosplaza);
+    }
 
     marcador.setStyle(new ol.style.Style({
         image: new ol.style.Circle({
@@ -29,7 +34,7 @@ export function crear_pinusuario() {
     return pinusuario;
 }
 
-export function tracker(pinusuario, mapa, ruta, destino) {
+export function tracker(pinusuario, mapa, ruta) {
     const tracker = new ol.Geolocation({
         trackingOptions: {
             enableHighAccuracy: true //Activamos la ubicación con alta precisión
@@ -48,7 +53,9 @@ export function tracker(pinusuario, mapa, ruta, destino) {
 
             const origen = ol.proj.toLonLat(coordsactuales);
 
-            osrm.osrm(origen, destino, ruta, mapa);
+            if(mapajs.destinoactual != null) {
+                osrm.osrm(origen, mapajs.destinoactual, ruta, mapa);
+            }
         }
     });
     //Error por si le ocurre fallar

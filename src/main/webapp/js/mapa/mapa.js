@@ -23,3 +23,9 @@ export const map = new ol.Map({
 
 map.addLayer(caparuta);
 map.addLayer(capamarcadores);
+
+// Creamos una variable que almacenará el destino de lo que seleccionemos
+export let destinoactual = null;
+export function setDestino(coords) {
+    destinoactual = coords;
+}

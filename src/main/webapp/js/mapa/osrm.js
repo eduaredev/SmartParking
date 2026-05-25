@@ -37,8 +37,17 @@ export function osrm(origen, destino, ruta, mapa) {
                 ruta.addFeature(featureruta);
             });
 
-            const minutosrestantes = Math.round(datos.routes[0].duration / 60);
-            console.log(`Faltan ${minutosrestantes} minutos para llegar al estacionamiento seleccionado`);
+            const minutoscrudos = Math.round(datos.routes[0].duration / 60);
+            const minutosrestantes = Math.round(minutoscrudos * 1.3);
+            const distanciaMetros = datos.routes[0].distance;
+            const distanciaKm = (distanciaMetros / 1000).toFixed(2); // .toFixed(2) deja dos decimales
+
+            const etiquetaTiempo = document.getElementById('tiempo-llegada');
+            const etiquetaDistancia = document.getElementById('distancia-llegada');
+
+            if (etiquetaTiempo) etiquetaTiempo.innerText = minutosrestantes + " min";
+            if (etiquetaDistancia) etiquetaDistancia.innerText = distanciaKm + " km";
+
         }
     })
         .catch(error => console.error("Error con OSRM:", error))
