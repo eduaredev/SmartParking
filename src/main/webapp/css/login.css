@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color: #f4f7f6;
+    background-color: #616161;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -17,15 +17,18 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 5%;
-    background-color: white;
+    padding: 30px 5%;
+    background-color: #212529;
     box-shadow: 0 2px 10px rgba(0,0,0,0.5);
 }
 
 .logo {
-    font-size: 1.5rem;
     font-weight: 700;
-    color: #2155CF;
+    letter-spacing: 0.0625em;
+    text-transform: uppercase;
+    font-size: 1.5em;
+    font-family: "Montserrat", sans-serif;
+    color: #ffc800;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -50,10 +53,16 @@ body {
     font-size: 0.95rem;
 }
 
-.nav-actions {
-    display: flex;
-    align-items: center;
-    gap: 20px;
+.btn-primary {
+    background-color: #0D0D0D;
+    border-color: #ffc800;
+    color: white;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+    background-color: #0D0D0D !important;
+    border-color: #ffc800 !important;
+    color: white !important;
 }
 
 .link-login {

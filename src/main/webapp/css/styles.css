@@ -1,0 +1,159 @@
+@charset "UTF-8";
+
+html {
+  scroll-padding-top: 4.5rem;
+}
+body {
+  position: relative;
+}
+p {
+  line-height: 1.75;
+}
+
+.page-section {
+  padding: 6rem 0;
+  background-color: #C7C7C7;
+}
+.page-section h2.section-heading {
+  font-size: 2.5rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+.page-section h3.section-subheading {
+  font-size: 1rem;
+  font-weight: 400;
+  font-style: italic;
+  font-family: "Roboto Slab", serif;
+  margin-bottom: 4rem; }
+
+@media (min-width: 768px) {
+  section { padding: 9rem 0; }
+}
+
+
+.btn-xl {
+  padding: 1.25rem 2.5rem;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.btn-primary {
+  background-color: #0D0D0D;
+  border-color: #ffc800;
+  color: white;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+  background-color: #0D0D0D !important;
+  border-color: #ffc800 !important;
+  color: white !important;
+}
+
+.btn-login {
+  color: #fff;
+  border: 2px solid #ffc800;
+  background-color: transparent;
+  transition: all 0.3s ease;
+}
+
+
+.btn-login:hover, .btn-login:focus {
+  background-color: #ffc800;
+  border-color: #ffc800;
+  color: #212529;
+}
+
+.btn-social {
+  height: 2.5rem;
+  width: 2.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border-radius: 100%;
+}
+
+
+#mainNav { padding-top: 1.2rem; padding-bottom: 1.2rem; background-color: #212529; }
+#mainNav .navbar-toggler { padding: 0.75rem; font-size: 0.75rem; font-family: "Montserrat", sans-serif; text-transform: uppercase; font-weight: 700; }
+#mainNav .navbar-brand { color: #ffc800; font-family: "Montserrat", sans-serif; font-weight: 700; letter-spacing: 0.0625em; text-transform: uppercase; font-size: 1.5em; }
+#mainNav .navbar-nav .nav-item .nav-link { font-family: "Montserrat", sans-serif; font-size: 0.95rem; color: #fff; letter-spacing: 0.0625em; }
+#mainNav .navbar-nav .nav-item .nav-link.active, #mainNav .navbar-nav .nav-item .nav-link:hover { color: #ffc800; }
+
+/* Solo mantenemos los márgenes para pantallas grandes, borramos los efectos de "shrink" y transición */
+@media (min-width: 992px) {
+  #mainNav .navbar-nav .nav-item { margin-right: 1rem; }
+  #mainNav .navbar-nav .nav-item:last-child { margin-right: 0; }
+}
+
+header.masthead {
+  padding-top: 10.5rem;
+  padding-bottom: 10rem;
+  text-align: center;
+  color: #fff;
+  background-image: url("../assets/img/header-bg.jpg");
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center center;
+  background-size: cover;
+  height: 100vh;
+}
+header.masthead .masthead-subheading {
+  font-size: 1.5rem;
+  font-style: italic;
+  line-height: 1.5rem;
+  margin-bottom: 25px;
+  font-family: "Roboto Slab", serif;
+  color: #ffc800;
+}
+header.masthead .masthead-heading {
+  font-size: 3.25rem;
+  font-weight: 700;
+  line-height: 3.25rem;
+  margin-bottom: 2rem;
+  font-family: "Montserrat", sans-serif;
+}
+
+@media (min-width: 768px) {
+  header.masthead {
+    padding-top: 17rem;
+    padding-bottom: 12.5rem;
+  }
+  header.masthead .masthead-subheading {
+    font-size: 2.25rem;
+    line-height: 2.25rem;
+  }
+  header.masthead .masthead-heading {
+    font-size: 4.5rem;
+    line-height: 4.5rem;
+    margin-bottom: 4rem;
+  }
+}
+
+#portfolio .portfolio-item {
+  max-width: 26rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+#portfolio .portfolio-item .portfolio-caption {
+  padding: 1.5rem;
+  text-align: center;
+  background-color: #fff;
+}
+#portfolio .portfolio-item .portfolio-caption .portfolio-caption-heading {
+  font-size: 1.5rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  margin-bottom: 0;
+}
+#portfolio .portfolio-item .portfolio-caption .portfolio-caption-subheading {
+  font-style: italic;
+  font-family: "Roboto Slab", serif;
+}
+
+.footer {
+  text-align: center;
+  font-size: 0.9rem;
+  font-family: "Montserrat", sans-serif;
+}

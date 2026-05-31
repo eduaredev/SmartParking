@@ -5,17 +5,17 @@
     <meta charset="UTF-8">
     <title>SmartParking - Iniciar Sesión</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/login.css?v=2">
 </head>
 <body class="bg-gris">
 
     <nav class="navbar">
         <div class="logo">
-            <img src="img/LogoSmartparking.jpg" alt="Logo SmartParking" class="logo-img">
             SmartParking
         </div>
         <div class="nav-actions">
-            <a href="index.jsp" class="link-login">Volver al Inicio</a>
+            <a href="index.jsp" class="btn btn-primary text-uppercase fw-bold">Volver al Inicio</a>
         </div>
     </nav>
 
