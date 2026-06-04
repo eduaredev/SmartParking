@@ -8,17 +8,16 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/login.css?v=2">
 </head>
-<body class="bg-gris">
+<body>
 
     <nav class="navbar">
         <div class="logo">
             SmartParking
         </div>
-        <div class="nav-actions">
+        <div>
             <a href="index.jsp" class="btn btn-primary text-uppercase fw-bold">Volver al Inicio</a>
         </div>
     </nav>
-
     <div class="contenedor-auth">
         <div class="tarjeta-auth">
             <h2>¡Hola de nuevo!</h2>

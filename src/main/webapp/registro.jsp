@@ -3,18 +3,19 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>SmartParking - Crear Cuenta</title>
+    <title>SmartParking - Iniciar Sesión</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/registro.css?v=2">
 </head>
-<body class="bg-gris">
+<body>
+
     <nav class="navbar">
         <div class="logo">
-            <img src="img/LogoSmartparking.jpg" alt="Logo SmartParking" class="logo-img">
             SmartParking
         </div>
-        <div class="nav-actions">
-            <a href="index.jsp" class="link-login">Volver a Inicio</a>
+        <div>
+            <a href="index.jsp" class="btn btn-primary text-uppercase fw-bold">Volver a Inicio</a>
         </div>
     </nav>
     <div class="contenedor-auth">
@@ -49,7 +50,7 @@
                     <label for="password">Contraseña</label>
                     <input type="password" id="password" name="password" placeholder="••••••••" required>
                 </div>
-                <button type="submit" class="btn-naranja btn-block">Registrarse</button>
+                <button type="submit" class="btn-entrar">Registrarse</button>
             </form>
             <p class="auth-footer">¿Ya tienes cuenta? <a href="login.jsp">Inicia sesión aquí</a></p>
         </div>

@@ -34,11 +34,6 @@ body {
     gap: 10px;
 }
 
-.logo-img{
-    height: 50px;
-    width: auto;
-    border-radius: 50%;
-}
 
 .nav-links {
     list-style: none;
