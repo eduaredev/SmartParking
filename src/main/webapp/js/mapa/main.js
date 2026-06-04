@@ -16,6 +16,7 @@ fetch('PlazaServlet')
     .then(respuesta => respuesta.json())
     .then(plazasDesdeMongo => {
 
+        const botonesDashboard = document.querySelectorAll('#menu-principal button')
         // Iteramos sobre la lista que nos devolvió Java
         plazasDesdeMongo.forEach(plaza => {
 
@@ -29,6 +30,8 @@ fetch('PlazaServlet')
                 flujo: plaza.flujo
             };
 
+            const coordsPlaza = ol.proj.fromLonLat([plaza.coordenadas[0], plaza.coordenadas[1]]);
+
             // Creamos el marcador azul con las coordenadas de la base de datos
             // Recuerda que en Mongo lo guardamos como un arreglo [longitud, latitud]
             const marcador = marcadores.crearMarcador(
@@ -40,6 +43,28 @@ fetch('PlazaServlet')
 
             // Lo pintamos en el mapa
             mapa.marcadores.addFeature(marcador);
+
+            for (let i = 0; i < botonesDashboard.length; i++) {
+                const boton = botonesDashboard[i];
+
+                // Comparamos el texto de Bootstrap con el nombre en Mongo
+                if (boton.textContent.toLowerCase().includes(plaza.nombre.toLowerCase())) {
+
+                    // Asignamos la función al hacer clic (Evitamos el error "not defined")
+                    boton.onclick = function () {
+
+                        // Funcion para centrar la cámara del mapa
+                        mapa.map.getView().animate({
+                            center: coordsPlaza,
+                            zoom: 15,
+                            duration: 800
+                        });
+
+                        // Ejecutamos la tarjeta lateral
+                        evento.mostrarplaza(datosMarcador, coordsPlaza, mapa, pinusuario);
+                    };
+                }
+            }
         });
     })
     .catch(error => {

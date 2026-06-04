@@ -22,7 +22,7 @@
 
     <link href="css/styles.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v10.9.0/ol.css">
-    <link rel="stylesheet" href="css/dashboard.css?v=3">
+    <link rel="stylesheet" href="css/dashboard.css">
 </head>
 <body>
 <div class="contenedor-dashboard">
@@ -42,15 +42,19 @@
         <div class="menu-acciones" id="menu-principal">
             <h5 class="fw-bold mb-3" style="color: white; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px;">Plazas Cercanas</h5>
 
-            <button class="btn btn-primary text-start mb-2 fw-bold p-3" style="border-radius: 10px;">
-                <i class="fas fa-map-marker-alt me-2" style="color: white;"></i> Centro Comercial Andamar
+            <button class="btn btn-primary text-start mb-2 fw-bold p-3">
+                <i class="fas fa-map-marker-alt me-2"></i> Centro Comercial Andamar
             </button>
-            <button class="btn btn-primary text-start mb-2 fw-bold p-3" style="border-radius: 10px;">
-                <i class="fas fa-map-marker-alt me-2" style="color: white;"></i> Plaza Las Américas
+            <button class="btn btn-primary text-start mb-2 fw-bold p-3">
+                <i class="fas fa-map-marker-alt me-2"></i> Plaza Las Américas
             </button>
-            <button class="btn btn-primary text-start mb-2 fw-bold p-3" style="border-radius: 10px;">
-                <i class="fas fa-map-marker-alt me-2" style="color: white;"></i> Centro Comercial El Dorado
+            <button class="btn btn-primary text-start mb-2 fw-bold p-3">
+                <i class="fas fa-map-marker-alt me-2"></i> Centro Comercial El Dorado
             </button>
+            <button class="btn btn-primary text-start mb-2 fw-bold p-3">
+                <i class="fas fa-map-marker-alt me-2"></i> Plaza Nuevo Veracruz
+            </button>
+
         </div>
 
         <div id="info-plaza-lateral" class="tarjeta_completa">

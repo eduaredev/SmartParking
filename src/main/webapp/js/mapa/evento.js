@@ -1,72 +1,60 @@
 import * as osrm from './osrm.js';
 import * as mapajs from './mapa.js';
 
-export function inicializarEventos(mapa, pinusuario) {
-    // Elementos del HTML para la tarjeta
-    const contenedorPopup = document.getElementById('tarjeta');
-    const contenidoPopup = document.getElementById('tarjeta_contenido');
-    const btnCerrar = document.getElementById('tarjeta_cerrar');
+// La misma funcion de antes pero la pasamos a los botones del panel izquierdo
+export function mostrarplaza(datos, coordenadas, mapa, pinusuario){
+    const panelInfo = document.getElementById('info-plaza-lateral');
+    const menuPrincipal = document.getElementById('menu-principal');
 
-    // Crear el Overlay y añadirlo al mapa
-    const overlay = new ol.Overlay({
-        element: contenedorPopup,
-        autoPan: true,
-        autoPanAnimation: { duration: 250 }
-    });
-    mapa.map.addOverlay(overlay);
+    // Armamos el HTML de la tarjeta
+    // Los emojis los saqué de esta pagina https://emojikeyboard.top/es/
+    // Por practicidad y para evitar parsear datos de js a html, fueron de html a datos de js con la funcion innetHTML
+    // Puedo escribir codigo HTML con etiquetas y referenciar botones con la información de mi mapa y distancias
+    panelInfo.innerHTML = `
+        <h3>${datos.nombre}</h3>
+        <p>📍 <strong>Ubicación:</strong> ${datos.direccion}</p>
+        <p>🎟️ <strong>Boleto:</strong> ${datos.precio}</p>
+        <p>⏱️ <strong>Tiempo Promedio Reserva:</strong> ${datos.flujo}</p>
+        <p>📏 <strong>Distancia:</strong> <span id="distancia-llegada" class="dato-resaltado">...</span></p>
+        <p>🚗 <strong>Llegarás en:</strong> <span id="tiempo-llegada" class="dato-resaltado">Calculando...</span></p>
+        <a href="estacionamiento.jsp?plaza=${datos.id}" class="btn btn-primary-tarjeta">Seleccionar Estacionamiento</a>
+        <button id="btn-cerrar-info" class="btn btn-primary-tarjeta w-100 fw-bold py-2">Cancelar / Cerrar</button>
+    `;
 
-    // Lógica para cerrar la tarjeta
-    btnCerrar.onclick = function () {
-        contenedorPopup.style.display = 'none';
-        overlay.setPosition(undefined);
-        mapajs.setDestino(null); //Borramos la ruta al cerrar la tarjeta
+    menuPrincipal.style.display = 'none';
+    panelInfo.style.display = 'block';
+
+    document.getElementById('btn-cerrar-info').onclick = function () {
+        panelInfo.style.display = 'none';
+        menuPrincipal.style.display = 'flex'; // Volvemos a mostrar el menú
+        mapajs.setDestino(null);
         mapa.ruta.clear();
-        return false; // Evita que la página salte hacia arriba
     };
 
+    // Recalculamos la ruta hacia esta nueva plaza
+    const destinoNuevo = ol.proj.toLonLat(coordenadas);
+    mapajs.setDestino(destinoNuevo);
+
+    const coordsActuales = pinusuario.getGeometry().getCoordinates();
+    if(coordsActuales) {
+        osrm.osrm(ol.proj.toLonLat(coordsActuales), destinoNuevo, mapa.ruta, mapa.map);
+    }
+
+}
+
+export function inicializarEventos(mapa, pinusuario) {
     // Lógica de clics en el mapa
+    const panelInfo = document.getElementById('info-plaza-lateral');
+    const menuPrincipal = document.getElementById('menu-principal');
+
     mapa.map.on('singleclick', function (evt) {
-        const feature = mapa.map.forEachFeatureAtPixel(evt.pixel, function (feature) {
-            return feature;
-        });
 
-        // Si tocamos algo y ese algo tiene la propiedad 'esPlaza'
-        if (feature && feature.get('esPlaza')) {
-            const idPlaza = feature.get('id');
-            const nombre = feature.get('nombre');
-            const direccion = feature.get('direccion');
-            const precio = feature.get('precio');
-            const flujo = feature.get('flujo');
-            const coordenadas = feature.getGeometry().getCoordinates();
-
-            // Armamos el HTML de la tarjeta
-            // Los emojis los saqué de esta pagina https://emojikeyboard.top/es/
-            contenidoPopup.innerHTML = `
-                <h3>${nombre}</h3>
-                <p>📍 <strong>Ubicación:</strong> ${direccion}</p>
-                <p>🎟️ <strong>Boleto:</strong> ${precio}</p>
-                <p>⏱️ <strong>Tiempo Promedio Reserva:</strong> ${flujo}</p>
-                <p>📏 <strong>Distancia:</strong> <span id="distancia-llegada" class="dato-resaltado">...</span></p>
-                <p>🚗 <strong>Llegarás en:</strong> <span id="tiempo-llegada" class="dato-resaltado">Calculando...</span></p>
-                <a href="estacionamiento.jsp?plaza=${idPlaza}" class="boton_accion">Seleccionar Estacionamiento</a>
-            `;
-
-            contenedorPopup.style.display = 'block';
-            overlay.setPosition(coordenadas);
-
-            // Recalculamos la ruta hacia esta nueva plaza
-            const destinonuevo = ol.proj.toLonLat(coordenadas)
-            mapajs.setDestino(destinonuevo);
-
-            const coordsActuales = pinusuario.getGeometry().getCoordinates();
-
-            if(coordsActuales) {
-                osrm.osrm(ol.proj.toLonLat(coordsActuales), destinonuevo, mapa.ruta, mapa.map);
-            }
-        } else {
-            // Si tocamos en cualquier otro lado, cerramos
-            contenedorPopup.style.display = 'none';
-            overlay.setPosition(undefined);
+        // Si tocamos en cualquier otro lado, cerramos
+        if(panelInfo.style.display === 'block') {
+            panelInfo.style.display = 'none';
+            menuPrincipal.style.display = 'flex';
+            mapajs.setDestino(null);
+            mapa.ruta.clear();
         }
     });
 }
