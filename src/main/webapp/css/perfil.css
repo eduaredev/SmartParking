@@ -1,0 +1,79 @@
+/* =========================================
+   VARIABLES GLOBALES Y TIPOGRAFÍA
+   ========================================= */
+body {
+    background-color: #f8f9fa;
+    font-family: 'Inter', sans-serif;
+}
+
+/* =========================================
+   BARRA DE NAVEGACIÓN
+   ========================================= */
+.navbar-perfil {
+    background-color: #212529;
+    padding: 15px 5%;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.navbar-logo {
+    color: #ffc800;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/* =========================================
+   MENÚ LATERAL (TABS)
+   ========================================= */
+.nav-pills .nav-link {
+    color: #495057;
+    font-weight: 600;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    transition: all 0.2s ease-in-out;
+}
+
+.nav-pills .nav-link:hover {
+    background-color: #e9ecef;
+}
+
+.nav-pills .nav-link.active {
+    background-color: #212529 !important;
+    color: #ffc800 !important;
+}
+
+.foto-perfil-placeholder {
+    width: 80px;
+    height: 80px;
+    font-size: 2rem;
+}
+
+/* =========================================
+   TARJETAS DE VEHÍCULOS
+   ========================================= */
+.vehiculo-card {
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    background-color: #ffffff;
+}
+
+.vehiculo-card:hover {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.vehiculo-card.activo {
+    border-color: #2ecc71;
+    background-color: #f2fcf5;
+}
+
+.badge-estado {
+    font-size: 0.8rem;
+    padding: 6px 10px;
+}
+
+/* =========================================
+   SWITCH DE DISCAPACIDAD
+   ========================================= */
+.switch-accesibilidad {
+    transform: scale(1.4);
+}

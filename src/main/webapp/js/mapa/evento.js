@@ -17,7 +17,7 @@ export function mostrarplaza(datos, coordenadas, mapa, pinusuario){
         <p>⏱️ <strong>Tiempo Promedio Reserva:</strong> ${datos.flujo}</p>
         <p>📏 <strong>Distancia:</strong> <span id="distancia-llegada" class="dato-resaltado">...</span></p>
         <p>🚗 <strong>Llegarás en:</strong> <span id="tiempo-llegada" class="dato-resaltado">Calculando...</span></p>
-        <a href="estacionamiento.jsp?plaza=${datos.id}" class="btn btn-primary-tarjeta">Seleccionar Estacionamiento</a>
+        <a href="EstacionamientoServlet?plaza=${datos.id}" class="btn btn-primary-tarjeta">Seleccionar Estacionamiento</a>
         <button id="btn-cerrar-info" class="btn btn-primary-tarjeta w-100 fw-bold py-2">Cancelar / Cerrar</button>
     `;
 

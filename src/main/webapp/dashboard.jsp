@@ -32,7 +32,7 @@
             <div class="d-flex justify-content-between align-items-center mb-2">
                 <h2 class="tarjeta m-0">SMARTPARKING</h2>
 
-                <a href="#" class="btn btn-primary rounded-circle" title="Mi Perfil" style="width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-width: 2px;">
+                <a href="perfil.jsp" class="btn btn-primary rounded-circle" title="Mi Perfil" style="width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-width: 2px;">
                     <i class="fas fa-user"></i>
                 </a>
             </div>
