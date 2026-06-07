@@ -6,12 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Usuario implements Serializable {
+    private String id;
     private String nombre;
     private String email;
     private String password;
     private String telefono;
 
     private boolean esDiscapacitado;
+    private boolean esVip;
     private double saldoDeudor;
     private List<Vehiculos> vehiculos;
 
@@ -45,6 +47,10 @@ public class Usuario implements Serializable {
     }
 
     // Getters y setters
+
+    public String getId() {return id;}
+    public void setId(String id) {this.id = id;}
+
     public String getNombre() {
         return nombre;
     }
@@ -77,6 +83,9 @@ public class Usuario implements Serializable {
         return esDiscapacitado;
     }
     public void setEsDiscapacitado(boolean esDiscapacitado) { this.esDiscapacitado = esDiscapacitado; }
+
+    public boolean isEsVip() { return esVip; }
+    public void setEsVip(boolean esVip) { this.esVip = esVip; }
 
     public double getSaldoDeudor() { return saldoDeudor; }
     public void setSaldoDeudor(double saldoDeudor) { this.saldoDeudor = saldoDeudor; }

@@ -6,7 +6,10 @@ import modelos.Vehiculos;
 import modelos.TipoVehiculo;
 import com.mongodb.client.MongoCollection;
 import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.and;
 import org.bson.Document;
+import org.bson.types.ObjectId;
+import com.mongodb.client.model.Updates;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +20,7 @@ public class UsuarioDAO {
     public UsuarioDAO() {
         this.coleccionUsuarios = Conexion.getDatabase().getCollection("Users");
     }
+
     public boolean registrarUsuario(Usuario user) {
         // Verificacion para ver si ya eciste el usuario mediante el filtro por email
         if (coleccionUsuarios.find(eq("email", user.getEmail())).first() != null) {
@@ -28,11 +32,13 @@ public class UsuarioDAO {
 
             Vehiculos v = user.getVehiculos().get(i);
 
-            Document vDoc = new Document("placa", v.getPlaca())
+            Document vDoc = new Document("idvehiculo", v.getIdvehiculo())
+                    .append("placa", v.getPlaca())
                     .append("marca", v.getMarca())
                     .append("modelo", v.getModelo())
                     .append("color", v.getColor())
-                    .append("tipo", v.getTipo().name()); // Guardamos el Enum como String
+                    .append("tipo", v.getTipo().name()) // Guardamos el Enum como String
+                    .append("activo", v.isActivo());
             vehiculosDocs.add(vDoc);
         }
 
@@ -42,8 +48,9 @@ public class UsuarioDAO {
                 .append("password", user.getPassword())
                 .append("telefono", user.getTelefono())
                 .append("es_discapacitado", false)
+                .append("es_vip", false)
                 .append("saldo_deudor", 0.0)
-                .append("vehiculos", new ArrayList<>()); // Arreglo vacío para autos
+                .append("vehiculos", vehiculosDocs); // Arreglo vacío para autos
 
         // Insertamos en la coleccion
         coleccionUsuarios.insertOne(doc);
@@ -59,18 +66,24 @@ public class UsuarioDAO {
 
             if (vehiculosDocs != null) {
                 for (Document vDoc : vehiculosDocs) {
-                    Vehiculos vehiculo = new Vehiculos(
-                            vDoc.getString("placa"),
-                            vDoc.getString("marca"),
-                            vDoc.getString("modelo"),
-                            vDoc.getString("color"),
-                            TipoVehiculo.valueOf(vDoc.getString("tipo"))
-                    );
+                    Vehiculos vehiculo = new Vehiculos();
+                    vehiculo.setIdvehiculo(vDoc.getString("idvehiculo"));
+                    vehiculo.setPlaca(vDoc.getString("placa"));
+                    vehiculo.setMarca(vDoc.getString("marca"));
+                    vehiculo.setModelo(vDoc.getString("modelo"));
+                    vehiculo.setColor(vDoc.getString("color"));
+
+                    // Enum y el estado Activo
+                    String tipo = vDoc.getString("tipo");
+                    if(tipo != null) vehiculo.setTipo(TipoVehiculo.valueOf(tipo));
+
+                    vehiculo.setActivo(vDoc.getBoolean("activo", false));
+
                     vehiculosJava.add(vehiculo);
                 }
             }
 
-            return new Usuario(
+            Usuario usuarioEncontrado = new Usuario(
                     doc.getString("nombre"),
                     doc.getString("email"),
                     doc.getString("password"),
@@ -79,6 +92,9 @@ public class UsuarioDAO {
                     doc.getDouble("saldo_deudor"),
                     vehiculosJava
             );
+            usuarioEncontrado.setId(doc.getObjectId("_id").toString());
+            usuarioEncontrado.setEsVip(doc.getBoolean("es_vip", false));
+            return usuarioEncontrado;
         }
         return null; // No existe en MongoDB
     }
@@ -97,4 +113,67 @@ public class UsuarioDAO {
         }
         return null;
     }
+
+    public boolean agregarVehiculo(String idUsuario, Vehiculos nuevoVehiculo) {
+        try {
+            Document vDoc = new Document("idvehiculo", nuevoVehiculo.getIdvehiculo())
+                    .append("placa", nuevoVehiculo.getPlaca())
+                    .append("marca", nuevoVehiculo.getMarca())
+                    .append("modelo", nuevoVehiculo.getModelo())
+                    .append("color", nuevoVehiculo.getColor())
+                    .append("tipo", nuevoVehiculo.getTipo().name())
+                    .append("activo", nuevoVehiculo.isActivo());
+
+            coleccionUsuarios.updateOne(
+                    eq("_id", new ObjectId(idUsuario)),
+                    Updates.push("vehiculos", vDoc)
+            );
+            return true;
+        } catch (Exception e) {
+            System.err.println("Error al agregar vehículo: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean seleccionarVehiculoActivo(String idUsuario, String idVehiculoActivo) {
+        try {
+            ObjectId uId = new ObjectId(idUsuario);
+
+            // Ponemos TODOS los vehículos de este usuario en activo = false
+            coleccionUsuarios.updateOne(
+                    eq("_id", uId),
+                    Updates.set("vehiculos.$[].activo", false)
+            );
+
+            // Ponemos SOLO el que queremos usar que este activo
+            coleccionUsuarios.updateOne(
+                    and(eq("_id", uId), eq("vehiculos.idvehiculo", idVehiculoActivo)),
+                    Updates.set("vehiculos.$.activo", true)
+            );
+            return true;
+        } catch (Exception e) {
+            System.err.println("Error al seleccionar vehículo: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean actualizarPerfil(String idUsuario, String nuevoNombre, String nuevoTelefono, boolean esDiscapacitado, boolean esVip) {
+        try {
+            coleccionUsuarios.updateOne(
+                    eq("_id", new ObjectId(idUsuario)),
+                    Updates.combine(
+                            Updates.set("nombre", nuevoNombre),
+                            Updates.set("telefono", nuevoTelefono),
+                            Updates.set("es_discapacitado", esDiscapacitado),
+                            Updates.set("es_vip", esVip)
+                    )
+            );
+            return true;
+        } catch (Exception e) {
+            System.err.println("Error al actualizar perfil: " + e.getMessage());
+            return false;
+        }
+    }
+
+
 }

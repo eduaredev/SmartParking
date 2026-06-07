@@ -1,7 +1,7 @@
 package modelos;
 
 public enum TipoVehiculo {
-    AUTO,
+    COCHE,
     CAMIONETA,
     MOTO
 }
