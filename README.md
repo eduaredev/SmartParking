@@ -1,8 +1,8 @@
 # 🧑‍💻​ LINK Aplicación WEB.
 
-Utilicé DigitalOcean como servidor en la nube privado virtual basado en Linux Ubuntu y usando NameCheap para agregar un dominio sustituyendo la dirección IP pública cruda,
+Utilicé DigitalOcean como servidor en la nube privado virtual basado en Linux Ubuntu y usando NameCheap para agregar un dominio sustituyendo la dirección IP pública cruda.
 
-Utilicé NGINX, es un servidor web y proxy OpenSource que gestiona y habilitad HTTPS para cifrar la información entre Usuario - Servidor
+Utilicé NGINX, es un servidor web y proxy OpenSource que gestiona y habilita HTTPS para cifrar la información entre Usuario - Servidor
 
 # INGRESE AL LINK!
 <a href="https://smartparkingdaw.me" target="_blank">
