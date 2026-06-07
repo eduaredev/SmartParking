@@ -25,27 +25,19 @@ public class LiberarServlet extends HttpServlet {
         String idReserva = request.getParameter("id");
 
         if (cajonALiberar != null) {
-            ServletContext contexto = getServletContext();
+            javax.servlet.ServletContext contexto = getServletContext();
             List<String> ocupados = (List<String>) contexto.getAttribute("cajonesOcupados");
-
             if (ocupados != null) {
-                // Lo removemos de la lista de ocupados
                 ocupados.remove(cajonALiberar);
                 contexto.setAttribute("cajonesOcupados", ocupados);
             }
         }
 
         if (idReserva != null && !idReserva.isEmpty()) {
-            MongoCollection<Document> coleccion = Conexion.getDatabase().getCollection("Reservas");
-
-            // Buscamos el documento por su id y cambiamos el estado a "FINALIZADA"
-            coleccion.updateOne(
-                    Filters.eq("_id", new ObjectId(idReserva)),
-                    Updates.set("estado", "FINALIZADA")
-            );
+            DAO.ReservaDAO reservaDAO = new DAO.ReservaDAO();
+            reservaDAO.finalizarReserva(idReserva);
         }
 
-        // Redirigimos al mapa principal
         response.sendRedirect("dashboard.jsp");
     }
 }

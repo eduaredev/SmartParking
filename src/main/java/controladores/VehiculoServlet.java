@@ -31,7 +31,6 @@ public class VehiculoServlet extends HttpServlet {
         String accion = request.getParameter("accion");
         UsuarioDAO dao = new UsuarioDAO();
 
-        // 1. AGREGAR NUEVO VEHÍCULO
         if ("agregar".equals(accion)) {
             String placa = request.getParameter("placa").toUpperCase();
             String marca = request.getParameter("marca");
@@ -39,19 +38,27 @@ public class VehiculoServlet extends HttpServlet {
             String color = request.getParameter("color");
             String tipoStr = request.getParameter("tipo"); // COCHE, CAMIONETA o MOTO
 
-            // Creamos el objeto vehículo. Si es el primer coche que registra, lo hacemos "activo" por defecto.
-            boolean esElPrimero = usuarioActual.getVehiculos() == null || usuarioActual.getVehiculos().isEmpty();
-            Vehiculos nuevoVehiculo = new Vehiculos(usuarioActual.getId(), placa, marca, modelo, color, TipoVehiculo.valueOf(tipoStr), esElPrimero);
+            // Generamos un id unico para cada vehiculo
+            String idVehiculoPropio = new org.bson.types.ObjectId().toHexString();
 
-            if (dao.agregarVehiculo(usuarioActual.getId(), nuevoVehiculo)) {
-                usuarioActual.getVehiculos().add(nuevoVehiculo); // Lo agregamos a la sesión actual
+            boolean esElPrimero = usuarioActual.getVehiculos() == null || usuarioActual.getVehiculos().isEmpty();
+
+            // Usamos el nuevo ID propio, NO el del usuario
+            Vehiculos nuevoVehiculo = new Vehiculos(idVehiculoPropio, placa, marca, modelo, color, TipoVehiculo.valueOf(tipoStr), esElPrimero);
+
+            // Usamos el email para buscar al dueño en la base de datos
+            if (dao.agregarVehiculo(usuarioActual.getEmail(), nuevoVehiculo)) {
+
+                if (usuarioActual.getVehiculos() == null) {
+                    usuarioActual.setVehiculos(new java.util.ArrayList<>());
+                }
+                usuarioActual.getVehiculos().add(nuevoVehiculo); // Lo agregamos a la sesión
                 session.setAttribute("usuarioLogueado", usuarioActual); // Actualizamos la sesión
             }
 
             // Recargamos la página
             response.sendRedirect("vehiculo.jsp");
 
-            // 2. CAMBIAR VEHÍCULO ACTIVO
         } else if ("seleccionar".equals(accion)) {
             String idVehiculo = request.getParameter("idVehiculo");
 
@@ -62,7 +69,6 @@ public class VehiculoServlet extends HttpServlet {
                 }
                 session.setAttribute("usuarioLogueado", usuarioActual);
 
-                // Le respondemos a JavaScript que todo salió bien
                 response.setContentType("application/json");
                 response.getWriter().write("{\"status\":\"success\"}");
             } else {

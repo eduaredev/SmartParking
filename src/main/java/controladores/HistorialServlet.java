@@ -30,17 +30,8 @@ public class HistorialServlet extends HttpServlet {
             return;
         }
 
-        List<Document> misReservas = new ArrayList<>();
-        MongoCollection<Document> coleccion = Conexion.getDatabase().getCollection("Reservas");
-
-        // Buscamos las reservas del usuario y las ordenamos de la más reciente a la más antigua
-        try (MongoCursor<Document> cursor = coleccion.find(Filters.eq("correo_usuario", usuarioActual.getEmail()))
-                .sort(new Document("fecha_reserva", -1)).iterator()) {
-            while (cursor.hasNext()) {
-                misReservas.add(cursor.next());
-            }
-        }
-
+        DAO.ReservaDAO reservaDAO = new DAO.ReservaDAO();
+        List<Document> misReservas = reservaDAO.obtenerHistorialPorCorreo(usuarioActual.getEmail());
         // Enviamos la lista al JSP
         request.setAttribute("misReservas", misReservas);
         request.getRequestDispatcher("historial.jsp").forward(request, response);

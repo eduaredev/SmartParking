@@ -66,10 +66,9 @@ public class ReservaServlet extends HttpServlet {
                 .append("estado", "ACTIVA") // ACTIVA o FINALIZADA
                 .append("fecha_reserva", new Date());
 
-        // Insertamos en la colección "Reservas"
-        Conexion.getDatabase().getCollection("Reservas").insertOne(nuevaReserva);
-
-        String idGenerado = nuevaReserva.getObjectId("_id").toHexString();
+        //Aqui tenia antes la conexion directa, era una mala practica perdon :s
+        DAO.ReservaDAO reservaDAO = new DAO.ReservaDAO();
+        String idGenerado = reservaDAO.crearReserva(nuevaReserva);
 
         // 5. Mandamos los datos limpios al Ticket
         request.setAttribute("idReserva", idGenerado);

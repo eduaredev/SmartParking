@@ -49,12 +49,12 @@
     <div class="row">
 
         <div class="col-lg-4 col-md-5 mb-4">
-            <div class="card shadow-sm border-0 d-flex flex-column" style="border-radius: 12px; height: 78vh;">
+            <div class="card shadow-sm border-0 d-flex flex-column" style="border-radius: 12px; height: 81vh;">
                 <div class="card-header bg-dark text-white text-center fw-bold py-3" style="border-top-left-radius: 12px; border-top-right-radius: 12px;">
                     <i class="fas fa-ticket-alt me-2"></i><strong class="titulo-plaza"><%= idPlaza %></strong>
                 </div>
 
-                <div class="card-body p-4 d-flex flex-column overflow-auto">
+                <div class="card-body p-4 d-flex flex-column">
                     <p class="text-muted mb-3">Selecciona un lugar en el mapa o ingresa los datos de tu reserva.</p>
 
                     <div id="panel-vip" class="alert alert-warning border-0 shadow-sm fw-bold mb-3" style="display: none; font-size: 0.9rem; padding: 12px;">

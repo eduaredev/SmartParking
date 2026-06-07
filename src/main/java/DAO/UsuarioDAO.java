@@ -114,9 +114,10 @@ public class UsuarioDAO {
         return null;
     }
 
-    public boolean agregarVehiculo(String idUsuario, Vehiculos nuevoVehiculo) {
+    public boolean agregarVehiculo(String correoUsuario, Vehiculos nuevoVehiculo) {
         try {
-            Document vDoc = new Document("idvehiculo", nuevoVehiculo.getIdvehiculo())
+            org.bson.Document vehiculoDoc = new org.bson.Document()
+                    .append("idvehiculo", nuevoVehiculo.getIdvehiculo())
                     .append("placa", nuevoVehiculo.getPlaca())
                     .append("marca", nuevoVehiculo.getMarca())
                     .append("modelo", nuevoVehiculo.getModelo())
@@ -124,13 +125,14 @@ public class UsuarioDAO {
                     .append("tipo", nuevoVehiculo.getTipo().name())
                     .append("activo", nuevoVehiculo.isActivo());
 
+            // Lo inyectamos en la lista de vehículos del usuario buscando por su email
             coleccionUsuarios.updateOne(
-                    eq("_id", new ObjectId(idUsuario)),
-                    Updates.push("vehiculos", vDoc)
+                    com.mongodb.client.model.Filters.eq("email", correoUsuario), // Ajusta "correo" al nombre exacto de tu campo en la DB si es diferente
+                    com.mongodb.client.model.Updates.push("vehiculos", vehiculoDoc)
             );
             return true;
         } catch (Exception e) {
-            System.err.println("Error al agregar vehículo: " + e.getMessage());
+            e.printStackTrace();
             return false;
         }
     }

@@ -48,7 +48,7 @@
                     </div>
                     <div class="nav flex-column nav-pills">
                         <a href="perfil.jsp" class="nav-link text-start text-dark"><i class="fas fa-id-card me-2"></i> Editar Perfil</a>
-                        <a href="VehiculoServlet" class="nav-link text-start text-dark"><i class="fas fa-car me-2"></i> Mis Vehículos</a>
+                        <a href="vehiculo.jsp" class="nav-link text-start text-dark"><i class="fas fa-car me-2"></i> Mis Vehículos</a>
                         <a href="pagos.jsp" class="nav-link text-start text-dark"><i class="fas fa-credit-card me-2"></i> Métodos de Pago</a>
                         <a href="HistorialServlet" class="nav-link active text-start"><i class="fas fa-history me-2"></i> Historial</a>
                     </div>
