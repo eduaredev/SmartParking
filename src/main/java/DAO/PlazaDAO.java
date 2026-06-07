@@ -4,6 +4,7 @@ import config.Conexion;
 import modelos.Plaza;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
+import com.mongodb.client.model.Filters;
 import org.bson.Document;
 
 import java.util.ArrayList;
@@ -38,5 +39,21 @@ public class PlazaDAO {
             }
         }
         return listaPlazas;
+    }
+
+    public Plaza obtenerPorId(String idPlaza) {
+        Document doc = coleccionPlazas.find(Filters.eq("id_plaza", idPlaza)).first();
+
+        if (doc != null) {
+            return new Plaza(
+                    doc.getString("id_plaza"),
+                    doc.getString("nombre"),
+                    doc.getString("direccion"),
+                    (List<Double>) doc.get("coordenadas"),
+                    doc.getString("precio"),
+                    doc.getString("flujo")
+            );
+        }
+        return null; // Retorna null si no encuentra la plaza
     }
 }
