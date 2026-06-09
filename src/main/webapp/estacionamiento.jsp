@@ -49,7 +49,7 @@
     <div class="row">
 
         <div class="col-lg-4 col-md-5 mb-4">
-            <div class="card shadow-sm border-0 d-flex flex-column" style="border-radius: 12px; height: 81vh;">
+            <div class="card shadow-sm border-0 d-flex flex-column panel-reserva" style="border-radius: 12px;">
                 <div class="card-header bg-dark text-white text-center fw-bold py-3" style="border-top-left-radius: 12px; border-top-right-radius: 12px;">
                     <i class="fas fa-ticket-alt me-2"></i><strong class="titulo-plaza"><%= idPlaza %></strong>
                 </div>
